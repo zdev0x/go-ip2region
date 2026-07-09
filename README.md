@@ -191,6 +191,19 @@ docker run -d -p 8080:8080 \
   go-ip2region
 ```
 
+## 发布
+
+打 `v*` 标签并推送即触发 GitHub Actions，自动交叉编译常用平台二进制并发布为 GitHub Release 资产：
+
+- 平台：linux / darwin / windows × amd64 / arm64（共 6 种）
+- 产物命名：`go-ip2region-<os>-<arch>.tar.gz`（Windows 为 `.zip`），内置版本号取自标签
+- 查看版本：`./go-ip2region -version`
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
 ## 性能说明
 
 - 默认 `content` 全内存缓存，单查询约 10μs 级，无磁盘 IO。
