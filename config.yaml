@@ -1,0 +1,26 @@
+# ip2region 微服务默认配置
+# 加载优先级（由低到高）：内置默认值 < 本文件 < 环境变量
+# 说明：仅显式设置的字段生效；环境变量可用于容器/运维覆盖。
+
+# 监听地址
+http_addr: ":8080"
+
+# 超时时间（Go duration 字符串，如 5s、100ms、1m）
+read_timeout: "5s"
+write_timeout: "10s"
+
+# xdb 数据文件路径（运行时挂载/指定；为空字符串则禁用对应版本）
+v4_xdb_path: "/data/ip2region_v4.xdb"
+v6_xdb_path: "/data/ip2region_v6.xdb"
+
+# 缓存策略：file(无缓存) / vectorindex(向量索引,约512KB) / content(全内存,默认)
+cache_policy: "content"
+
+# searcher 池大小；0 表示按 GOMAXPROCS*2 自动计算
+searchers: 0
+
+# 批量查询单次最大 IP 数量
+max_batch_size: 1000
+
+# 可选 PID 文件路径；非空时启动时写入 PID，便于 xdb 更新脚本发送信号触发热加载
+pid_file: ""

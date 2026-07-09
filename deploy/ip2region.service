@@ -1,0 +1,29 @@
+[Unit]
+Description=ip2region IP 查询微服务
+Documentation=https://github.com/lionsoul2014/ip2region
+After=network.target
+
+[Service]
+Type=simple
+# 运行用户需对下方目录与 xdb 文件有读权限
+User=ip2region
+Group=ip2region
+WorkingDirectory=/opt/ip2region
+# -config 指向配置文件；亦可用环境变量 IP2REGION_CONFIG 覆盖
+ExecStart=/opt/ip2region/ip2region-service -config /opt/ip2region/config.yaml
+# xdb 更新脚本通过 SIGHUP 触发热加载（零停机）
+ExecReload=/bin/kill -HUP $MAINPID
+# 若 config.yaml 中配置了 pid_file，可启用 PIDFile 指令与之对应
+# PIDFile=/run/ip2region.pid
+Restart=on-failure
+RestartSec=2s
+# 环境变量覆盖示例（可选）
+# Environment=IP2REGION_CACHE_POLICY=content
+# Environment=IP2REGION_PID_FILE=/run/ip2region.pid
+LimitNOFILE=65535
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ip2region
+
+[Install]
+WantedBy=multi-user.target
