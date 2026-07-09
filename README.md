@@ -1,4 +1,4 @@
-# ip2region-service
+# go-ip2region
 
 基于 [ip2region](https://github.com/lionsoul2014/ip2region) 的 IP 属地查询微服务，支持**单 IP 查询**与**批量查询**，采用官方并发安全的查询内核，设计简洁、高性能、易部署。
 
@@ -50,16 +50,16 @@ curl -fsSL https://raw.githubusercontent.com/lionsoul2014/ip2region/master/data/
 ### 2. 构建与运行
 
 ```bash
-go build -o ip2region-service .
+go build -o go-ip2region .
 
 # 通过配置文件运行（xdb 路径在 config.yaml 中配置）
-./ip2region-service -config config.yaml
+./go-ip2region -config config.yaml
 
 # 或通过环境变量覆盖（示例）
 IP2REGION_V4_XDB=./data/ip2region_v4.xdb \
 IP2REGION_V6_XDB=./data/ip2region_v6.xdb \
 IP2REGION_PID_FILE=/run/ip2region.pid \
-./ip2region-service
+./go-ip2region
 ```
 
 ## 配置
@@ -183,12 +183,12 @@ systemctl enable --now ip2region
 ### Docker
 
 ```bash
-docker build -t ip2region-service .
+docker build -t go-ip2region .
 docker run -d -p 8080:8080 \
   -v /path/to/data:/data \
   -e IP2REGION_V4_XDB=/data/ip2region_v4.xdb \
   -e IP2REGION_V6_XDB=/data/ip2region_v6.xdb \
-  ip2region-service
+  go-ip2region
 ```
 
 ## 性能说明

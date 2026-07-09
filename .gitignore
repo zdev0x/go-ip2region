@@ -2,7 +2,7 @@
 /bin/
 *.exe
 /app
-/ip2region/ip2region-service
+/go-ip2region
 
 # 数据文件（运行时挂载，不入库）
 /data/

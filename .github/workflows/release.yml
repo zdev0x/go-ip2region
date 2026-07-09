@@ -44,9 +44,9 @@ jobs:
           CGO_ENABLED: '0'
         run: |
           VERSION="${GITHUB_REF_NAME}"
-          BIN="ip2region-service"
+          BIN="go-ip2region"
           if [ "${{ matrix.goos }}" = "windows" ]; then BIN="${BIN}.exe"; fi
-          OUT="ip2region-service-${{ matrix.goos }}-${{ matrix.goarch }}"
+          OUT="go-ip2region-${{ matrix.goos }}-${{ matrix.goarch }}"
           go build -trimpath -ldflags="-s -w -X main.version=${VERSION}" -o "${BIN}" .
           if [ "${{ matrix.goos }}" = "windows" ]; then
             zip "${OUT}.zip" "${BIN}"
@@ -59,8 +59,8 @@ jobs:
         with:
           name: ${{ matrix.goos }}-${{ matrix.goarch }}
           path: |
-            ip2region-service-*.tar.gz
-            ip2region-service-*.zip
+            go-ip2region-*.tar.gz
+            go-ip2region-*.zip
           if-no-files-found: error
 
   release:
